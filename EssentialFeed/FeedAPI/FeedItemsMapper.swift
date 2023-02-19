@@ -7,7 +7,7 @@
 
 import Foundation
 
-private class FeedItemsMapper {
+final class FeedItemsMapper {
 
     struct Root: Decodable {
         let items: [Item]
@@ -29,7 +29,7 @@ private class FeedItemsMapper {
         }
     }
 
-    static var OK_200: Int { 200 }
+    private static var OK_200: Int { 200 }
 
     static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedItem] {
         guard response.statusCode == OK_200 else {
