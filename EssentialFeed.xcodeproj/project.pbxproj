@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3441222429AB997E00E63D05 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3441222329AB997E00E63D05 /* URLSessionHTTPClientTests.swift */; };
 		3451D9502998AFB200AF5899 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3451D9472998AFB200AF5899 /* EssentialFeed.framework */; };
 		3451D9552998AFB200AF5899 /* EssentialFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3451D9542998AFB200AF5899 /* EssentialFeedTests.swift */; };
 		3451D9562998AFB200AF5899 /* EssentialFeed.h in Headers */ = {isa = PBXBuildFile; fileRef = 3451D94A2998AFB200AF5899 /* EssentialFeed.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3441222329AB997E00E63D05 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		3451D9472998AFB200AF5899 /* EssentialFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3451D94A2998AFB200AF5899 /* EssentialFeed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EssentialFeed.h; sourceTree = "<group>"; };
 		3451D94F2998AFB200AF5899 /* EssentialFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				3451D9542998AFB200AF5899 /* EssentialFeedTests.swift */,
+				3441222329AB997E00E63D05 /* URLSessionHTTPClientTests.swift */,
 				3459E0B829A238D900307C41 /* Feed API */,
 			);
 			path = EssentialFeedTests;
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3451D9642998B47700AF5899 /* RemoteFeedLoaderTests.swift in Sources */,
+				3441222429AB997E00E63D05 /* URLSessionHTTPClientTests.swift in Sources */,
 				3451D9552998AFB200AF5899 /* EssentialFeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
