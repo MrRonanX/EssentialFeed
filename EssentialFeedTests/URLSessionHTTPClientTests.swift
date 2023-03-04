@@ -48,10 +48,10 @@ final class URLSessionHTTPClientTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private class MockURLSession: URLSession {
+    private class MockURLSession: HTTPSession {
 
         private struct Stub {
-            let task: URLSessionDataTask
+            let task: HTTPSessionTask
             let error: Error?
         }
 
@@ -59,16 +59,16 @@ final class URLSessionHTTPClientTests: XCTestCase {
 
         func stub(
             url: URL,
-            task: URLSessionDataTask = MockURLSessionDataTask(),
+            task: HTTPSessionTask = MockURLSessionDataTask(),
             error: Error? = nil
         ) {
             stubs[url] = Stub(task: task, error: error)
         }
 
-        override func dataTask(
+        func dataTask(
             with url: URL,
             completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
-        ) -> URLSessionDataTask {
+        ) -> HTTPSessionTask {
             guard let stub = stubs[url] else {
                 fatalError("Couldn't file stub for \(url)")
             }
@@ -78,19 +78,30 @@ final class URLSessionHTTPClientTests: XCTestCase {
         }
     }
 
-    private class MockURLSessionDataTask: URLSessionDataTask {
+    private class MockURLSessionDataTask: HTTPSessionTask {
         var resumeCallCount = 0
 
-        override func resume() {
+        func resume() {
             resumeCallCount += 1
         }
     }
 }
 
-class URLSessionHTTPClient {
-    private let session: URLSession
+protocol HTTPSessionTask {
+    func resume()
+}
 
-    init(session: URLSession) {
+protocol HTTPSession {
+    func dataTask(
+       with url: URL,
+       completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+   ) -> HTTPSessionTask
+}
+
+class URLSessionHTTPClient {
+    private let session: HTTPSession
+
+    init(session: HTTPSession) {
         self.session = session
     }
 
