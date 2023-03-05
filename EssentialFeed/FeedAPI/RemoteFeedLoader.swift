@@ -23,6 +23,8 @@ public final class RemoteFeedLoader: FeedLoader {
     }
 
     public func load(completion: @escaping (ClientLoadResult) -> Void) {
+        guard let url else { return }
+        
         client.get(from: url) { [weak self] result in
             guard self != nil else { return }
 
