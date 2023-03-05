@@ -53,6 +53,22 @@ final class URLSessionHTTPClientTests: XCTestCase {
         URLProtocolStub.stopInterceptingRequests()
     }
 
+    func test_getFromURL_performsGETRequestWithURL() {
+        URLProtocolStub.startInterceptingRequests()
+        let url = URL(string: "http://any-url.com")!
+        let expectation = expectation(description: "Wait for request")
+
+        URLProtocolStub.observeRequests { request in
+            XCTAssertEqual(request.url, url)
+            XCTAssertEqual(request.httpMethod, "GET")
+            expectation.fulfill()
+        }
+
+        URLSessionHTTPClient().get(from: url) { _ in }
+        wait(for: [expectation], timeout: 1.0)
+        URLProtocolStub.stopInterceptingRequests()
+    }
+
 
 
     // MARK: - Helpers
@@ -66,6 +82,7 @@ final class URLSessionHTTPClientTests: XCTestCase {
         }
 
         private static var stub: Stub?
+        private static var requestObserver: ((URLRequest) -> Void)?
 
         static func startInterceptingRequests() {
             URLProtocol.registerClass(URLProtocolStub.self)
@@ -74,15 +91,23 @@ final class URLSessionHTTPClientTests: XCTestCase {
         static func stopInterceptingRequests() {
             URLProtocol.unregisterClass(URLProtocolStub.self)
             stub = nil
+            requestObserver = nil
         }
 
         static func stub(data: Data?, response: URLResponse?, error: Error? = nil) {
             stub = Stub(data: data, response: response, error: error)
         }
 
-        override class func canInit(with request: URLRequest) -> Bool { true }
+        override class func canInit(with request: URLRequest) -> Bool {
+            requestObserver?(request)
+            return true
+        }
 
         override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+
+        static func observeRequests(observer: @escaping (URLRequest) -> Void) {
+            requestObserver = observer
+        }
 
         override func startLoading() {
             if let data = URLProtocolStub.stub?.data {
