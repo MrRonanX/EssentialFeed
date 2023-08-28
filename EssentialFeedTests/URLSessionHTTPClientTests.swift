@@ -8,8 +8,6 @@
 import XCTest
 import EssentialFeed
 
-
-
 final class URLSessionHTTPClientTests: XCTestCase {
 
     override func setUp() {
